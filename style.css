@@ -1,62 +1,252 @@
-*{
-    margin:0;
-    padding:0;
-}
-body{
-    background-color: #D5DFE5;
-    text-align: center;
-    font-size: 3rem;
-    
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@600;700&display=swap');
 
+@property --angle{
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
 }
+
+:root{
+    --night:     #1a0b1c;
+    --plum:      #3d1238;
+    --wine:      #6b1d3a;
+    --gold:      #e8c26b;
+    --gold-soft: #f8e6b0;
+    --emerald:   #3ddc97;
+    --rose:      #ff8fb1;
+    --board:     min(88vw, 62vh, 30rem);
+    --gap:       clamp(0.5rem, 2.2vmin, 1rem);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    min-height: 100%;
+}
+
+body{
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.75rem, 3vh, 1.75rem);
+    padding: clamp(1rem, 4vmin, 2.5rem) 1rem;
+    text-align: center;
+    font-family: 'Cinzel', Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--gold-soft);
+    background:
+        radial-gradient(1.5px 1.5px at 15% 25%, var(--gold-soft) 50%, transparent 51%),
+        radial-gradient(1px 1px at 72% 18%, #fff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 88% 70%, var(--gold) 50%, transparent 51%),
+        radial-gradient(1px 1px at 30% 82%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 55% 50%, var(--gold-soft) 50%, transparent 51%),
+        radial-gradient(circle at 15% 10%, rgba(255,143,177,0.22), transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(61,220,151,0.14), transparent 45%),
+        linear-gradient(165deg, var(--night), var(--plum) 55%, var(--wine));
+    background-attachment: fixed;
+}
+
+main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.75rem, 3vh, 1.75rem);
+}
+
+h1{
+    font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+    font-size: clamp(1.6rem, 6vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: 0.06em;
+    background: linear-gradient(90deg, var(--gold-soft), var(--rose), var(--gold-soft));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 0.6rem rgba(232,194,107,0.45));
+}
+
+/* ---------- BOARD ---------- */
 .container{
-    height: 75vh;
+    width: 100%;
+    height: auto;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
+
 .game{
-    height: 65vmin;
-    width: 65vmin;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap:2vmin;
+    width: var(--board);
+    height: var(--board);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: var(--gap);
+    padding: var(--gap);
+    border-radius: 1.75rem;
+    border: 3px solid transparent;
+    background:
+        linear-gradient(rgba(26,11,28,0.88), rgba(61,18,56,0.88)) padding-box,
+        conic-gradient(from var(--angle), var(--gold), var(--rose), var(--emerald), var(--gold)) border-box;
+    box-shadow:
+        0 0 2.5rem rgba(255,143,177,0.28),
+        0 0 5rem rgba(107,29,58,0.6),
+        inset 0 0 2rem rgba(232,194,107,0.08);
+    animation: spin 8s linear infinite;
 }
+
+@keyframes spin{
+    to { --angle: 360deg; }
+}
+
 .box{
-    height:20vmin;
-    width: 20vmin;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 1rem;
-    border: none;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
-    font-size: 10vmin;
-    color:#567568;
-    background-color: #C9B1BD;
+    border: 1px solid rgba(232,194,107,0.55);
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 13vmin, 5rem);
+    line-height: 1;
+    color: var(--gold);
+    text-shadow: 0 0 0.8rem rgba(232,194,107,0.8);
+    background: radial-gradient(circle at 30% 25%, rgba(255,143,177,0.18), transparent 55%),
+                linear-gradient(145deg, #5a1a47, #2a0e2b);
+    box-shadow:
+        0 0.5rem 1rem rgba(0,0,0,0.5),
+        inset 0 0 0 4px rgba(26,11,28,0.55),
+        inset 0 0 0 5px rgba(232,194,107,0.25);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
-#reset-btn{
-    padding:1rem;
-    font-size: 1.25rem;
-    background-color:black ;
-    color: white;
-     border-radius: 1rem;
-    border: none;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+
+.box:hover:not(:disabled){
+    transform: translateY(-4px) scale(1.04);
+    border-color: var(--emerald);
+    box-shadow:
+        0 0 1.5rem rgba(61,220,151,0.5),
+        0 0.8rem 1.4rem rgba(0,0,0,0.5),
+        inset 0 0 0 4px rgba(26,11,28,0.55),
+        inset 0 0 0 5px rgba(61,220,151,0.4);
 }
+
+.box:active:not(:disabled){
+    transform: scale(0.96);
+}
+
+.box:disabled{
+    cursor: not-allowed;
+    color: var(--gold-soft);
+    border-color: var(--gold);
+    background: radial-gradient(circle at 50% 40%, rgba(232,194,107,0.22), transparent 65%),
+                linear-gradient(145deg, #4a1540, #240b25);
+    animation: pop .35s ease;
+}
+
+@keyframes pop{
+    0%   { transform: scale(0.8); }
+    60%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* ---------- BUTTONS ---------- */
+#reset-btn,
 #renew-btn{
-padding:1rem;
-    font-size: 1.25rem;
-    background-color:black ;
-    color: white;
-     border-radius: 1rem;
+    padding: 0.85rem 2rem;
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 2.6vw, 1.1rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--night);
+    background: linear-gradient(135deg, var(--gold-soft), var(--gold) 55%, #b98b3e);
     border: none;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    border-radius: 3rem;
+    box-shadow:
+        0 0 1.2rem rgba(232,194,107,0.45),
+        0 0.5rem 1rem rgba(0,0,0,0.4);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
 }
+
+#reset-btn:hover,
+#renew-btn:hover{
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+    box-shadow:
+        0 0 2rem rgba(232,194,107,0.8),
+        0 0.7rem 1.2rem rgba(0,0,0,0.45);
+}
+
+#reset-btn:active,
+#renew-btn:active{
+    transform: scale(0.96);
+}
+
+/* ---------- WINNER MESSAGE ---------- */
+.msgContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: fit-content;
+    max-width: 92vw;
+    padding: 1.25rem 2rem;
+    border-radius: 1.5rem;
+    background: rgba(26,11,28,0.7);
+    border: 1px solid rgba(232,194,107,0.55);
+    box-shadow: 0 0 2.5rem rgba(255,143,177,0.35);
+    backdrop-filter: blur(8px);
+    animation: fadeUp .6s ease;
+}
+
 #msg{
-    color:  #C9B1BD;
-    font-size: 2rem;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 5vw, 2.2rem);
+    color: var(--gold-soft);
+    text-shadow: 0 0 1rem rgba(232,194,107,0.7);
+    overflow-wrap: anywhere;
 }
+
+@keyframes fadeUp{
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .hide{
     display: none;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px){
+    :root{ --board: min(92vw, 58vh); }
+    .game{ border-radius: 1.25rem; }
+    .box{ border-radius: 0.75rem; }
+    .msgContainer{ padding: 1rem 1.25rem; }
+}
+
+@media (max-height: 520px) and (orientation: landscape){
+    :root{ --board: min(60vh, 70vw); }
+    body{ gap: 0.5rem; padding: 0.5rem; }
+    h1{ font-size: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
 }
