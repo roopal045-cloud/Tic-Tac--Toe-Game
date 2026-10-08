@@ -76,7 +76,21 @@ renewbtn.addEventListener("click",resetGame);
 resetbtn.addEventListener("click",resetGame);
 
 
+const themeBtn = document.querySelector("#theme-toggle");
 
+const applyTheme = (theme) => {
+    document.body.setAttribute("data-theme", theme);
+    themeBtn.innerText = theme === "light" ? "🌙" : "☀️";
+    try { localStorage.setItem("theme", theme); } catch (e) {}
+};
+
+let savedTheme = "dark";
+try { savedTheme = localStorage.getItem("theme") || "dark"; } catch (e) {}
+applyTheme(savedTheme);
+
+themeBtn.addEventListener("click", () => {
+    applyTheme(document.body.getAttribute("data-theme") === "light" ? "dark" : "light");
+});
 
 
 
